@@ -1,12 +1,11 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const path = require("path");
-const cors = require('cors')
+const path = require('path');
+const cors = require('cors');
+require('dotenv').config();
 
-require('dotenv').config()
-
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 //const config = require("./config/key");
 const uri = process.env.ATLAS_URI;
@@ -17,16 +16,16 @@ const uri = process.env.ATLAS_URI;
 //   .then(() => console.log("DB connected"))
 //   .catch(err => console.error(err));
 
-const mongoose = require("mongoose");
-const connect = mongoose.connect(uri,
-  {
-    useNewUrlParser: true, useUnifiedTopology: true,
-    useCreateIndex: true, useFindAndModify: false
-  })
-  .then(() => console.log('MongoDB Connected...'))
-  .catch(err => console.log(err));
+const mongoose = require('mongoose');
+// const connect = mongoose.connect(uri,
+//   {
+//     useNewUrlParser: true, useUnifiedTopology: true,
+//     useCreateIndex: true, useFindAndModify: false
+//   })
+//   .then(() => console.log('MongoDB Connected...'))
+//   .catch(err => console.log(err));
 
-app.use(cors())
+app.use(cors());
 
 //to not get any deprecation warning or error
 //support parsing of application/x-www-form-urlencoded post data
@@ -45,20 +44,29 @@ app.use('/api/product', require('./routes/product'));
 app.use('https://thtshop-cv.onrender.com/uploads', express.static('uploads'));
 
 // Serve static assets if in production
-if (process.env.NODE_ENV === "production") {
-
-  // Set static folder   
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
   // All the javascript and css files will be read and served from this folder
-  app.use(express.static("client/build"));
+  app.use(express.static('client/build'));
 
   // index.html for all page routes    html or routing and naviagtion
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
   });
 }
 
-const port = process.env.PORT || 5000
-
-app.listen(port, () => {
-  console.log(`Server Listening on ${port}`)
-});
+const port = process.env.PORT || 5000;
+mongoose
+  .connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
+  .then(() => {
+    console.log('MongoDB Connected...');
+    app.listen(port, () => {
+      console.log(`Server Listening on ${port}`);
+    });
+  })
+  .catch((err) => console.log(err));

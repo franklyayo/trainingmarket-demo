@@ -11,12 +11,13 @@
     "start": "node server/index.js",
     "server": "node server/index.js",
     "client": "npm run start --prefix client",
-    "build": "npm install && cd client && npm install && npm run build"	
+    "build": "npm install && cd client && npm install && npm run build"
   },
   "author": "Aquila",
   "license": "ISC",
   "dependencies": {
     "async": "^3.2.0",
+    "aws-sdk": "^2.1610.0",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
