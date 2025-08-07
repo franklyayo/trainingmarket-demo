@@ -4,7 +4,7 @@ import 'core-js';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.cs';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from "react-router-dom";
@@ -19,7 +19,7 @@ const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)
 
 ReactDOM.render(
     <Provider
-        store={createStoreWithMiddleware(
+        store={createStoreWithMiddleware
             Reducer,
             window.__REDUX_DEVTOOLS_EXTENSION__ &&
             window.__REDUX_DEVTOOLS_EXTENSION__()
